@@ -1,381 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Donation System</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #e8f5e9; /* Light green background */
-    }
-    .navbar, .btn-primary {
-      background-color: #4caf50; /* Green theme */
-      color: white;
-    }
-    .card {
-      margin: 10px;
-    }
-    .toggle-link {
-      color: #4caf50;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Food Donation System</a>
-    </div>
-  </nav>
-
-  <!-- Login/Signup Page -->
-  <div id="loginPage" class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title text-center" id="formTitle">Login</h3>
-            <form id="loginForm">
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" required>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" required>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Login</button>
-            </form>
-            <hr>
-            <p class="text-center">New User? <span class="toggle-link" onclick="toggleForm()">Signup Here</span></p>
-            <form id="signupForm" style="display: none;">
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" required>
-              </div>
-              <div class="mb-3">
-                <label for="phone" class="form-label">Phone No</label>
-                <input type="text" class="form-control" id="phone" required>
-              </div>
-              <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" required>
-              </div>
-              <div class="mb-3">
-                <label for="signupEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="signupEmail" required>
-              </div>
-              <div class="mb-3">
-                <label for="signupPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="signupPassword" required>
-              </div>
-              <button type="submit" class="btn btn-success w-100">Signup</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- User Dashboard -->
-  <div id="userDashboard" class="container mt-5" style="display: none;">
-    <h2 class="text-center">User Dashboard</h2>
-    <button class="btn btn-danger mb-3" onclick="logout()">Logout</button>
-    <button class="btn btn-secondary mb-3" onclick="goBack()">Back</button>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Donate Food</h5>
-            <form id="donateFoodForm">
-              <div class="mb-3">
-                <label for="foodName" class="form-label">Food Name</label>
-                <input type="text" class="form-control" id="foodName" required>
-              </div>
-              <div class="mb-3">
-                <label for="foodQuantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="foodQuantity" required>
-              </div>
-              <div class="mb-3">
-                <label for="donorPhone" class="form-label">Phone No</label>
-                <input type="text" class="form-control" id="donorPhone" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Donate</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Available Food</h5>
-            <ul id="availableFoodList" class="list-group"></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Request Food</h5>
-            <form id="requestFoodForm">
-              <div class="mb-3">
-                <label for="requestFoodName" class="form-label">Food Name</label>
-                <input type="text" class="form-control" id="requestFoodName" required>
-              </div>
-              <div class="mb-3">
-                <label for="requestFoodQuantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="requestFoodQuantity" required>
-              </div>
-              <div class="mb-3">
-                <label for="requesterPhone" class="form-label">Phone No</label>
-                <input type="text" class="form-control" id="requesterPhone" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Request</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">My Requests</h5>
-            <ul id="userRequestList" class="list-group"></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Admin Dashboard -->
-  <div id="adminDashboard" class="container mt-5" style="display: none;">
-    <h2 class="text-center">Admin Dashboard</h2>
-    <button class="btn btn-danger mb-3" onclick="logout()">Logout</button>
-    <button class="btn btn-secondary mb-3" onclick="goBack()">Back</button>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">User Details</h5>
-            <ul id="userDetailsList" class="list-group"></ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Food Donations</h5>
-            <ul id="adminFoodList" class="list-group"></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Food Requests</h5>
-            <ul id="adminRequestList" class="list-group"></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Fixed Admin Credentials
-    const adminEmail = "admin@example.com";
-    const adminPassword = "admin123";
-
-    // Local Storage Keys
-    const usersKey = "users";
-    const foodKey = "food";
-    const requestsKey = "requests";
-
-    // Check if users, food, and requests data exist in localStorage, else initialize
-    if (!localStorage.getItem(usersKey)) {
-      localStorage.setItem(usersKey, JSON.stringify([]));
-    }
-    if (!localStorage.getItem(foodKey)) {
-      localStorage.setItem(foodKey, JSON.stringify([]));
-    }
-    if (!localStorage.getItem(requestsKey)) {
-      localStorage.setItem(requestsKey, JSON.stringify([]));
-    }
-
-    // Get elements
-    const loginPage = document.getElementById("loginPage");
-    const userDashboard = document.getElementById("userDashboard");
-    const adminDashboard = document.getElementById("adminDashboard");
-    const loginForm = document.getElementById("loginForm");
-    const signupForm = document.getElementById("signupForm");
-    const formTitle = document.getElementById("formTitle");
-
-    // Toggle between Login and Signup forms
-    function toggleForm() {
-      if (loginForm.style.display === "none") {
-        loginForm.style.display = "block";
-        signupForm.style.display = "none";
-        formTitle.innerText = "Login";
-      } else {
-        loginForm.style.display = "none";
-        signupForm.style.display = "block";
-        formTitle.innerText = "Signup";
-      }
-    }
-
-    // Login Form Submission
-    loginForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      if (email === admin@gmail.com && password === admin) {
-        showAdminDashboard();
-      } else {
-        const users = JSON.parse(localStorage.getItem(usersKey));
-        const user = users.find(u => u.email === email && u.password === password);
-        if (user) {
-          showUserDashboard();
-        } else {
-          alert("Invalid credentials");
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodek - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-weight='bold' fill='%2322c55e'>F</text></svg>">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
         }
-      }
-    });
+    </style>
+</head>
 
-    // Signup Form Submission
-    signupForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const address = document.getElementById("address").value;
-      const email = document.getElementById("signupEmail").value;
-      const password = document.getElementById("signupPassword").value;
+<body class="bg-gradient-to-br from-green-50 to-white min-h-screen">
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center text-green-600 font-bold text-xl sm:text-2xl">
+                        Foodek
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-green-600">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-      const users = JSON.parse(localStorage.getItem(usersKey));
-      users.push({ name, phone, address, email, password });
-      localStorage.setItem(usersKey, JSON.stringify(users));
-      alert("Signup successful! Please login.");
-      toggleForm();
-      document.getElementById("signupForm").reset();
-    });
+    <!-- Login/Signup Container -->
+    <div class="container mx-auto px-4 pt-32 pb-16">
+        <div class="max-w-md mx-auto">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold text-center mb-6" id="formTitle">Login</h3>
+                    
+                    <!-- Login Form -->
+                    <form id="loginForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" id="password" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200">
+                            Login
+                        </button>
+                    </form>
 
-    // Donate Food Form Submission
-    document.getElementById("donateFoodForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const foodName = document.getElementById("foodName").value;
-      const foodQuantity = document.getElementById("foodQuantity").value;
-      const donorPhone = document.getElementById("donorPhone").value;
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-600">New User? 
+                            <span class="text-green-600 cursor-pointer hover:text-green-700" onclick="toggleForm()">
+                                Signup Here
+                            </span>
+                        </p>
+                    </div>
 
-      const food = JSON.parse(localStorage.getItem(foodKey));
-      food.push({ foodName, foodQuantity, donorPhone });
-      localStorage.setItem(foodKey, JSON.stringify(food));
-      alert("Food donated successfully!");
-      document.getElementById("donateFoodForm").reset();
-      loadAvailableFood();
-    });
+                    <!-- Signup Form -->
+                    <form id="signupForm" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="name" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone No</label>
+                            <input type="text" id="phone" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                            <input type="text" id="address" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="signupEmail" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" id="signupPassword" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200">
+                            Signup
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    // Request Food Form Submission
-    document.getElementById("requestFoodForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const requestFoodName = document.getElementById("requestFoodName").value;
-      const requestFoodQuantity = document.getElementById("requestFoodQuantity").value;
-      const requesterPhone = document.getElementById("requesterPhone").value;
+    <script>
+        // Fixed Admin Credentials
+        const adminEmail = "admin@example.com";
+        const adminPassword = "admin123";
 
-      const requests = JSON.parse(localStorage.getItem(requestsKey));
-      requests.push({ requestFoodName, requestFoodQuantity, requesterPhone });
-      localStorage.setItem(requestsKey, JSON.stringify(requests));
-      alert("Food request submitted successfully!");
-      document.getElementById("requestFoodForm").reset();
-      loadUserRequests();
-      loadAdminRequests();
-    });
+        // Local Storage Keys
+        const usersKey = "users";
+        const foodKey = "food";
+        const requestsKey = "requests";
 
-    // Load Available Food
-    function loadAvailableFood() {
-      const food = JSON.parse(localStorage.getItem(foodKey));
-      const foodList = document.getElementById("availableFoodList");
-      foodList.innerHTML = food.map(f => `
-        <li class="list-group-item">
-          ${f.foodName} - ${f.foodQuantity} (Contact: ${f.donorPhone})
-        </li>
-      `).join("");
-    }
+        // Check if users, food, and requests data exist in localStorage, else initialize
+        if (!localStorage.getItem(usersKey)) {
+            localStorage.setItem(usersKey, JSON.stringify([]));
+        }
+        if (!localStorage.getItem(foodKey)) {
+            localStorage.setItem(foodKey, JSON.stringify([]));
+        }
+        if (!localStorage.getItem(requestsKey)) {
+            localStorage.setItem(requestsKey, JSON.stringify([]));
+        }
 
-    // Load User Requests
-    function loadUserRequests() {
-      const requests = JSON.parse(localStorage.getItem(requestsKey));
-      const userRequestList = document.getElementById("userRequestList");
-      userRequestList.innerHTML = requests.map(r => `
-        <li class="list-group-item">
-          ${r.requestFoodName} - ${r.requestFoodQuantity} (Contact: ${r.requesterPhone})
-        </li>
-      `).join("");
-    }
+        // Get elements
+        const loginPage = document.getElementById("loginPage");
+        const userDashboard = document.getElementById("userDashboard");
+        const adminDashboard = document.getElementById("adminDashboard");
+        const loginForm = document.getElementById("loginForm");
+        const signupForm = document.getElementById("signupForm");
+        const formTitle = document.getElementById("formTitle");
 
-    // Load Admin Requests
-    function loadAdminRequests() {
-      const requests = JSON.parse(localStorage.getItem(requestsKey));
-      const adminRequestList = document.getElementById("adminRequestList");
-      adminRequestList.innerHTML = requests.map(r => `
-        <li class="list-group-item">
-          ${r.requestFoodName} - ${r.requestFoodQuantity} (Contact: ${r.requesterPhone})
-        </li>
-      `).join("");
-    }
+        // Toggle between Login and Signup forms
+        function toggleForm() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const formTitle = document.getElementById('formTitle');
 
-    // Show User Dashboard
-    function showUserDashboard() {
-      loginPage.style.display = "none";
-      userDashboard.style.display = "block";
-      adminDashboard.style.display = "none";
-      loadAvailableFood();
-      loadUserRequests();
-    }
+            if (loginForm.classList.contains('hidden')) {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                formTitle.innerText = 'Login';
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                formTitle.innerText = 'Signup';
+            }
+        }
 
-    // Show Admin Dashboard
-    function showAdminDashboard() {
-      loginPage.style.display = "none";
-      userDashboard.style.display = "none";
-      adminDashboard.style.display = "block";
+        // Login Form Submission
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-      const users = JSON.parse(localStorage.getItem(usersKey));
-      const userDetailsList = document.getElementById("userDetailsList");
-      userDetailsList.innerHTML = users.map(u => `
-        <li class="list-group-item">
-          ${u.name} - ${u.email} - ${u.phone} - ${u.address}
-        </li>
-      `).join("");
+            if (email === admin@gmail.com && password === admin) {
+                showAdminDashboard();
+            } else {
+                const users = JSON.parse(localStorage.getItem(usersKey));
+                const user = users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    showUserDashboard();
+                } else {
+                    alert("Invalid credentials");
+                }
+            }
+        });
 
-      const food = JSON.parse(localStorage.getItem(foodKey));
-      const adminFoodList = document.getElementById("adminFoodList");
-      adminFoodList.innerHTML = food.map(f => `
-        <li class="list-group-item">
-          ${f.foodName} - ${f.foodQuantity} (Contact: ${f.donorPhone})
-        </li>
-      `).join("");
+        // Signup Form Submission
+        signupForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const address = document.getElementById("address").value;
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
 
-      loadAdminRequests();
-    }
+            const users = JSON.parse(localStorage.getItem(usersKey));
+            users.push({ name, phone, address, email, password });
+            localStorage.setItem(usersKey, JSON.stringify(users));
+            alert("Signup successful! Please login.");
+            toggleForm();
+            document.getElementById("signupForm").reset();
+        });
 
-    // Logout
-    function logout() {
-      loginPage.style.display = "block";
-      userDashboard.style.display = "none";
-      adminDashboard.style.display = "none";
-      toggleForm(); // Reset to login form
-    }
+        // Donate Food Form Submission
+        document.getElementById("donateFoodForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const foodName = document.getElementById("foodName").value;
+            const foodQuantity = document.getElementById("foodQuantity").value;
+            const donorPhone = document.getElementById("donorPhone").value;
 
-    // Back Button Functionality
-    function goBack() {
-      loginPage.style.display = "block";
-      userDashboard.style.display = "none";
-      adminDashboard.style.display = "none";
-    }
-  </script>
+            const food = JSON.parse(localStorage.getItem(foodKey));
+            food.push({ foodName, foodQuantity, donorPhone });
+            localStorage.setItem(foodKey, JSON.stringify(food));
+            alert("Food donated successfully!");
+            document.getElementById("donateFoodForm").reset();
+            loadAvailableFood();
+        });
+
+        // Request Food Form Submission
+        document.getElementById("requestFoodForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const requestFoodName = document.getElementById("requestFoodName").value;
+            const requestFoodQuantity = document.getElementById("requestFoodQuantity").value;
+            const requesterPhone = document.getElementById("requesterPhone").value;
+
+            const requests = JSON.parse(localStorage.getItem(requestsKey));
+            requests.push({ requestFoodName, requestFoodQuantity, requesterPhone });
+            localStorage.setItem(requestsKey, JSON.stringify(requests));
+            alert("Food request submitted successfully!");
+            document.getElementById("requestFoodForm").reset();
+            loadUserRequests();
+            loadAdminRequests();
+        });
+
+        // Load Available Food
+        function loadAvailableFood() {
+            const food = JSON.parse(localStorage.getItem(foodKey));
+            const foodList = document.getElementById("availableFoodList");
+            foodList.innerHTML = food.map(f => `
+                <li class="list-group-item">
+                    ${f.foodName} - ${f.foodQuantity} (Contact: ${f.donorPhone})
+                </li>
+            `).join("");
+        }
+
+        // Load User Requests
+        function loadUserRequests() {
+            const requests = JSON.parse(localStorage.getItem(requestsKey));
+            const userRequestList = document.getElementById("userRequestList");
+            userRequestList.innerHTML = requests.map(r => `
+                <li class="list-group-item">
+                    ${r.requestFoodName} - ${r.requestFoodQuantity} (Contact: ${r.requesterPhone})
+                </li>
+            `).join("");
+        }
+
+        // Load Admin Requests
+        function loadAdminRequests() {
+            const requests = JSON.parse(localStorage.getItem(requestsKey));
+            const adminRequestList = document.getElementById("adminRequestList");
+            adminRequestList.innerHTML = requests.map(r => `
+                <li class="list-group-item">
+                    ${r.requestFoodName} - ${r.requestFoodQuantity} (Contact: ${r.requesterPhone})
+                </li>
+            `).join("");
+        }
+
+        // Show User Dashboard
+        function showUserDashboard() {
+            loginPage.style.display = "none";
+            userDashboard.style.display = "block";
+            adminDashboard.style.display = "none";
+            loadAvailableFood();
+            loadUserRequests();
+        }
+
+        // Show Admin Dashboard
+        function showAdminDashboard() {
+            loginPage.style.display = "none";
+            userDashboard.style.display = "none";
+            adminDashboard.style.display = "block";
+
+            const users = JSON.parse(localStorage.getItem(usersKey));
+            const userDetailsList = document.getElementById("userDetailsList");
+            userDetailsList.innerHTML = users.map(u => `
+                <li class="list-group-item">
+                    ${u.name} - ${u.email} - ${u.phone} - ${u.address}
+                </li>
+            `).join("");
+
+            const food = JSON.parse(localStorage.getItem(foodKey));
+            const adminFoodList = document.getElementById("adminFoodList");
+            adminFoodList.innerHTML = food.map(f => `
+                <li class="list-group-item">
+                    ${f.foodName} - ${f.foodQuantity} (Contact: ${f.donorPhone})
+                </li>
+            `).join("");
+
+            loadAdminRequests();
+        }
+
+        // Logout
+        function logout() {
+            loginPage.style.display = "block";
+            userDashboard.style.display = "none";
+            adminDashboard.style.display = "none";
+            toggleForm(); // Reset to login form
+        }
+
+        // Back Button Functionality
+        function goBack() {
+            loginPage.style.display = "block";
+            userDashboard.style.display = "none";
+            adminDashboard.style.display = "none";
+        }
+    </script>
 </body>
 </html>
