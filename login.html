@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodek - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-weight='bold' fill='%2322c55e'>F</text></svg>">
-    
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-weight='bold' fill='%2322c55e'>F</text></svg>">
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #e8f5e9;
+        }
+
+        .toggle-link {
+            color: #22c55e;
+            cursor: pointer;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -22,7 +31,7 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <a href="index.html" class="flex items-center text-green-600 font-bold text-xl sm:text-2xl">
-                        Foodek
+                        <span>Foodek</span>
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -33,70 +42,215 @@
     </nav>
 
     <!-- Login/Signup Container -->
-    <div class="container mx-auto px-4 pt-32 pb-16">
+    <div id="loginPage" class="container mx-auto px-4 pt-32 pb-16">
         <div class="max-w-md mx-auto">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold text-center mb-6" id="formTitle">Login</h3>
-                    
-                    <!-- Login Form -->
-                    <form id="loginForm" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="email" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <input type="password" id="password" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200">
-                            Login
-                        </button>
-                    </form>
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden p-8">
+                <h3 class="text-2xl font-bold text-center mb-6" id="formTitle">Login</h3>
 
-                    <div class="mt-6 text-center">
-                        <p class="text-gray-600">New User? 
-                            <span class="text-green-600 cursor-pointer hover:text-green-700" onclick="toggleForm()">
-                                Signup Here
-                            </span>
-                        </p>
+                <!-- Login Form -->
+                <form id="loginForm" class="space-y-4">
+                    <div class="mb-3">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email"
+                            class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            id="email" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password"
+                            class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            id="password" required>
+                    </div>
+                    <button type="submit"
+                        class="btn btn-primary w-100 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200 w-full">Login</button>
+                </form>
 
-                    <!-- Signup Form -->
-                    <form id="signupForm" class="space-y-4 hidden">
+                <div id="loginToggle" class="mt-6">
+                    <hr class="my-6">
+                    <p class="text-center text-gray-600">New User? 
+                        <span class="toggle-link text-green-600 hover:text-green-700" onclick="toggleForm()">Signup Here</span>
+                    </p>
+                </div>
+
+                <div id="signupToggle" class="mt-6" style="display: none;">
+                    <hr class="my-6">
+                    <p class="text-center text-gray-600">Already have an account? 
+                        <span class="toggle-link text-green-600 hover:text-green-700" onclick="toggleForm()">Login Here</span>
+                    </p>
+                </div>
+
+                <!-- Signup Form -->
+                <form id="signupForm" style="display: none;" class="space-y-4">
+                    <div class="mb-3">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text"
+                            class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone No</label>
+                        <input type="text"
+                            class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            id="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                        <input type="text"
+                            class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            id="address" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email"
+                            class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            id="signupEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupPassword"
+                            class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password"
+                            class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            id="signupPassword" required>
+                    </div>
+                    <button type="submit"
+                        class="btn btn-success w-100 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200 w-full">Signup</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="userDashboard" class="container mx-auto px-4 pt-32 pb-16" style="display: none;">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">User Dashboard</h2>
+                <div class="space-x-4">
+                    <button onclick="goBack()"
+                        class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Back</button>
+                    <button onclick="logout()"
+                        class="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600">Logout</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Donate Food Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Donate Food</h3>
+                    <form id="donateFoodForm" class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                            <input type="text" id="name" required
+                            <label for="foodName" class="block text-sm font-medium text-gray-700 mb-1">Food Name</label>
+                            <input type="text" id="foodName" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone No</label>
-                            <input type="text" id="phone" required
+                            <label for="foodQuantity"
+                                class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+                            <input type="number" id="foodQuantity" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                            <input type="text" id="address" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="signupEmail" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <input type="password" id="signupPassword" required
+                            <label for="donorPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone
+                                No</label>
+                            <input type="text" id="donorPhone" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
                         </div>
                         <button type="submit"
-                            class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200">
-                            Signup
-                        </button>
+                            class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200">Donate</button>
                     </form>
+                </div>
+
+                <!-- Available Food Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Available Food</h3>
+                    <ul id="availableFoodList" class="space-y-2 max-h-[400px] overflow-y-auto">
+                        <!-- Dynamic content -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
+                <!-- Request Food Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Request Food</h3>
+                    <form id="requestFoodForm" class="space-y-4">
+                        <div>
+                            <label for="requestFoodName" class="block text-sm font-medium text-gray-700 mb-1">Food
+                                Name</label>
+                            <input type="text" id="requestFoodName" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label for="requestFoodQuantity"
+                                class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+                            <input type="number" id="requestFoodQuantity" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label for="requesterPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone
+                                No</label>
+                            <input type="text" id="requesterPhone" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200">Request</button>
+                    </form>
+                </div>
+
+                <!-- My Requests Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">My Requests</h3>
+                    <ul id="userRequestList" class="space-y-2 max-h-[400px] overflow-y-auto">
+                        <!-- Dynamic content -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="container mx-auto px-4 pt-32 pb-16" style="display: none;">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Admin Dashboard</h2>
+                <div class="space-x-4">
+                    <button onclick="goBack()"
+                        class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Back</button>
+                    <button onclick="logout()"
+                        class="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600">Logout</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- User Details Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">User Details</h3>
+                    <div class="max-h-[400px] overflow-y-auto">
+                        <ul id="userDetailsList" class="divide-y divide-gray-200">
+                            <!-- Dynamic content -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Food Donations Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Food Donations</h3>
+                    <div class="max-h-[400px] overflow-y-auto">
+                        <ul id="adminFoodList" class="divide-y divide-gray-200">
+                            <!-- Dynamic content -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Food Requests Section -->
+            <div class="mt-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Food Requests</h3>
+                    <div class="max-h-[400px] overflow-y-auto">
+                        <ul id="adminRequestList" class="divide-y divide-gray-200">
+                            <!-- Dynamic content -->
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,6 +265,7 @@
         const usersKey = "users";
         const foodKey = "food";
         const requestsKey = "requests";
+        const loginStatusKey = "loginStatus";
 
         // Check if users, food, and requests data exist in localStorage, else initialize
         if (!localStorage.getItem(usersKey)) {
@@ -131,20 +286,40 @@
         const signupForm = document.getElementById("signupForm");
         const formTitle = document.getElementById("formTitle");
 
+        // Check if user is already logged in
+        function checkLoginStatus() {
+            const loginStatus = JSON.parse(localStorage.getItem(loginStatusKey));
+            if (loginStatus) {
+                if (loginStatus.role === "admin") {
+                    showAdminDashboard();
+                } else {
+                    showUserDashboard();
+                }
+            }
+        }
+
         // Toggle between Login and Signup forms
         function toggleForm() {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const formTitle = document.getElementById('formTitle');
+            const loginForm = document.getElementById("loginForm");
+            const signupForm = document.getElementById("signupForm");
+            const loginToggle = document.getElementById("loginToggle");
+            const signupToggle = document.getElementById("signupToggle");
+            const formTitle = document.getElementById("formTitle");
 
-            if (loginForm.classList.contains('hidden')) {
-                loginForm.classList.remove('hidden');
-                signupForm.classList.add('hidden');
-                formTitle.innerText = 'Login';
+            if (loginForm.style.display === "none") {
+                // Switch to Login
+                loginForm.style.display = "block";
+                signupForm.style.display = "none";
+                loginToggle.style.display = "block";
+                signupToggle.style.display = "none";
+                formTitle.innerText = "Login";
             } else {
-                loginForm.classList.add('hidden');
-                signupForm.classList.remove('hidden');
-                formTitle.innerText = 'Signup';
+                // Switch to Signup
+                loginForm.style.display = "none";
+                signupForm.style.display = "block";
+                loginToggle.style.display = "none";
+                signupToggle.style.display = "block";
+                formTitle.innerText = "Signup";
             }
         }
 
@@ -154,12 +329,18 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            if (email === admin@gmail.com && password === admin) {
+            if (email === adminEmail && password === adminPassword) {
+                localStorage.setItem(loginStatusKey, JSON.stringify({
+                    role: "admin"
+                }));
                 showAdminDashboard();
             } else {
                 const users = JSON.parse(localStorage.getItem(usersKey));
                 const user = users.find(u => u.email === email && u.password === password);
                 if (user) {
+                    localStorage.setItem(loginStatusKey, JSON.stringify({
+                        role: "user"
+                    }));
                     showUserDashboard();
                 } else {
                     alert("Invalid credentials");
@@ -177,7 +358,21 @@
             const password = document.getElementById("signupPassword").value;
 
             const users = JSON.parse(localStorage.getItem(usersKey));
-            users.push({ name, phone, address, email, password });
+            
+            // Check if email already exists
+            const emailExists = users.some(user => user.email === email);
+            if (emailExists) {
+                alert("This email is already registered. Please use a different email or login.");
+                return;
+            }
+
+            users.push({
+                name,
+                phone,
+                address,
+                email,
+                password
+            });
             localStorage.setItem(usersKey, JSON.stringify(users));
             alert("Signup successful! Please login.");
             toggleForm();
@@ -192,7 +387,11 @@
             const donorPhone = document.getElementById("donorPhone").value;
 
             const food = JSON.parse(localStorage.getItem(foodKey));
-            food.push({ foodName, foodQuantity, donorPhone });
+            food.push({
+                foodName,
+                foodQuantity,
+                donorPhone
+            });
             localStorage.setItem(foodKey, JSON.stringify(food));
             alert("Food donated successfully!");
             document.getElementById("donateFoodForm").reset();
@@ -207,7 +406,11 @@
             const requesterPhone = document.getElementById("requesterPhone").value;
 
             const requests = JSON.parse(localStorage.getItem(requestsKey));
-            requests.push({ requestFoodName, requestFoodQuantity, requesterPhone });
+            requests.push({
+                requestFoodName,
+                requestFoodQuantity,
+                requesterPhone
+            });
             localStorage.setItem(requestsKey, JSON.stringify(requests));
             alert("Food request submitted successfully!");
             document.getElementById("requestFoodForm").reset();
@@ -220,8 +423,10 @@
             const food = JSON.parse(localStorage.getItem(foodKey));
             const foodList = document.getElementById("availableFoodList");
             foodList.innerHTML = food.map(f => `
-                <li class="list-group-item">
-                    ${f.foodName} - ${f.foodQuantity} (Contact: ${f.donorPhone})
+                <li class="p-4 bg-gray-50 rounded-lg">
+                    <div class="font-medium text-gray-900">${f.foodName}</div>
+                    <div class="text-sm text-gray-600">Quantity: ${f.foodQuantity}</div>
+                    <div class="text-sm text-gray-600">Contact: ${f.donorPhone}</div>
                 </li>
             `).join("");
         }
@@ -231,8 +436,10 @@
             const requests = JSON.parse(localStorage.getItem(requestsKey));
             const userRequestList = document.getElementById("userRequestList");
             userRequestList.innerHTML = requests.map(r => `
-                <li class="list-group-item">
-                    ${r.requestFoodName} - ${r.requestFoodQuantity} (Contact: ${r.requesterPhone})
+                <li class="p-4 bg-gray-50 rounded-lg">
+                    <div class="font-medium text-gray-900">${r.requestFoodName}</div>
+                    <div class="text-sm text-gray-600">Quantity: ${r.requestFoodQuantity}</div>
+                    <div class="text-sm text-gray-600">Contact: ${r.requesterPhone}</div>
                 </li>
             `).join("");
         }
@@ -242,8 +449,10 @@
             const requests = JSON.parse(localStorage.getItem(requestsKey));
             const adminRequestList = document.getElementById("adminRequestList");
             adminRequestList.innerHTML = requests.map(r => `
-                <li class="list-group-item">
-                    ${r.requestFoodName} - ${r.requestFoodQuantity} (Contact: ${r.requesterPhone})
+                <li class="p-4">
+                    <div class="font-medium text-gray-900">${r.requestFoodName}</div>
+                    <div class="text-sm text-gray-600">Quantity: ${r.requestFoodQuantity}</div>
+                    <div class="text-sm text-gray-600">Contact: ${r.requesterPhone}</div>
                 </li>
             `).join("");
         }
@@ -284,6 +493,7 @@
 
         // Logout
         function logout() {
+            localStorage.removeItem(loginStatusKey);
             loginPage.style.display = "block";
             userDashboard.style.display = "none";
             adminDashboard.style.display = "none";
@@ -296,6 +506,10 @@
             userDashboard.style.display = "none";
             adminDashboard.style.display = "none";
         }
+
+        // Check login status on page load
+        checkLoginStatus();
     </script>
 </body>
+
 </html>
